@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;600;700&family=Rubik:wght@300;400;500&display=swap" rel="stylesheet"> -->
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Find your Pokemon!</h1>
+        <button id="view">View favorites</button>
+    </header>
+    <main>
+        <form id="new-pokemon-form">
+            <input type="text"
+                        id="new-pokemon-input"
+                        placeholder=""
+                        class="header-input-text"
+                        >
+            <input type="image"
+                        id="new-pokemon-submit"
+                        src="img/loupe.png"
+                        class="header-search">
+                        
+        </form>
+        <section class="pokemon-list">
+            <div class="out">
+            </div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
