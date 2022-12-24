@@ -103,3 +103,10 @@ form input {
     padding-left: 12rem;
     padding-bottom: 14rem;
 }
+#fav-btn-two {
+    height: 2rem;
+    width: 2rem;
+    position: absolute;
+    padding-left: 12rem;
+    padding-bottom: 14rem;
+}

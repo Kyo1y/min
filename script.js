@@ -61,41 +61,42 @@ function init() {
             }
         })
             viewFav.addEventListener("click", () => {
+                let favBtnTwo = document.getElementById("fav-btn-two")
+                function viewFav() {
+                    if (favBtnTwo.src.match("img/emptyheart.png")) {
+                        favBtnTwo.src = "img/fullheart.png"
+                        if (favs.length == 0) {
+                            favs.push(pokemon_id)
+                        } else {
+                            let res = favs.find(element => element.id == pokemon_id.id)
+                                if (res === undefined) {
+                                    favs.push(pokemon_id);
+                                }
+                        }
+                        localStorage.setItem("favs", JSON.stringify(favs))
+                    } else if (favBtnTwo.src.match("img/fullheart.png")) {
+                            favBtnTwo.src = "img/emptyheart.png"
+                            let temp = favs.filter(item => item.id != pokemon_id.id)
+                            localStorage.setItem("favs", JSON.stringify(temp))
+                    }
+                }
+                out.innerHTML = ""
                 favs.map((element) => {
                     favPokeUrl = favurl + element.id + "/"
                     fetch(favPokeUrl)
                     .then(response => response.json())
                     .then((content) => {
-                        out.innerHTML = `
+                        out.innerHTML += `
                             <div class="pokemon-container">
                                 <img src="${content.sprites.front_default}" alt="${content.name}" class ="pokemon-img">
                                 <h3 class = "pokemon-name">${content.name}</h3>
-                                <input type="image" src = "img/fullheart.png" id="fav-btn-two" >
+                                <input type="image" src = "img/fullheart.png" id="fav-btn-two" onclick="${viewFav()}">
                                 <div class = "info-container">
                                     <p class = "abilities">${"Abilities: " + content.abilities[0].ability.name}</p>
                                     <p class="id">${"ID: " + content.id}</p>
                                 </div>
                             </div>
                             `
-                        // let favBtnTwo = document.getElementById("fav-btn-two")
-                        // favBtnTwo.addEventListener("click", () => {
-                        //         if(favBtnTwo.src.match("img/emptyheart.png")) {
-                        //             favBtnTwo.src = "img/fullheart.png"
-                        //             if (favs.length == 0) {
-                        //                 favs.push(pokemon_id)
-                        //             } else {
-                        //                 let res = favs.find(element => element.id == pokemon_id.id)
-                        //                     if (res === undefined) {
-                        //                         favs.push(pokemon_id);
-                        //                     }
-                        //             }
-                        //             localStorage.setItem("favs", JSON.stringify(favs))
-                        //     }   else if (favBtnTwo.src.match("img/fullheart.png")) {
-                        //             favBtnTwo.src = "img/emptyheart.png"
-                        //             let temp = favs.filter(item => item.id != pokemon_id.id)
-                        //             localStorage.setItem("favs", JSON.stringify(temp))
-                        //     }
-                        // })
                     })
                 })
             })
