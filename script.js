@@ -13,7 +13,8 @@ let allPokes = JSON.parse(localStorage.getItem("all pokemons"));
 let favs = JSON.parse(localStorage.getItem("favs"));
 let favPokeUrl;
 function init() {
-    document.getElementById("new-pokemon-submit").addEventListener("click", event => {
+        console.log(favs)
+        document.getElementById("new-pokemon-submit").addEventListener("click", event => {
         event.preventDefault();
         let url = `https://pokeapi.co/api/v2/pokemon/`
         let str = document.getElementById("new-pokemon-input").value.trim()
@@ -60,29 +61,15 @@ function init() {
                     localStorage.setItem("favs", JSON.stringify(temp))
             }
         })
+        let newArr = [];
+        for(let i = 0; i < favs.length; i++) {
+            newArr.push(favs[i].id)
+        }
+        console.log("test", newArr)
             viewFav.addEventListener("click", () => {
-                let favBtnTwo = document.getElementById("fav-btn-two")
-                function viewFav() {
-                    if (favBtnTwo.src.match("img/emptyheart.png")) {
-                        favBtnTwo.src = "img/fullheart.png"
-                        if (favs.length == 0) {
-                            favs.push(pokemon_id)
-                        } else {
-                            let res = favs.find(element => element.id == pokemon_id.id)
-                                if (res === undefined) {
-                                    favs.push(pokemon_id);
-                                }
-                        }
-                        localStorage.setItem("favs", JSON.stringify(favs))
-                    } else if (favBtnTwo.src.match("img/fullheart.png")) {
-                            favBtnTwo.src = "img/emptyheart.png"
-                            let temp = favs.filter(item => item.id != pokemon_id.id)
-                            localStorage.setItem("favs", JSON.stringify(temp))
-                    }
-                }
                 out.innerHTML = ""
-                favs.map((element) => {
-                    favPokeUrl = favurl + element.id + "/"
+                newArr.map((element) => {
+                    favPokeUrl = favurl + element + "/"
                     fetch(favPokeUrl)
                     .then(response => response.json())
                     .then((content) => {
@@ -90,13 +77,34 @@ function init() {
                             <div class="pokemon-container">
                                 <img src="${content.sprites.front_default}" alt="${content.name}" class ="pokemon-img">
                                 <h3 class = "pokemon-name">${content.name}</h3>
-                                <input type="image" src = "img/fullheart.png" id="fav-btn-two" onclick="${viewFav()}">
+                                <input type="image" src = "img/fullheart.png" class="lala">
                                 <div class = "info-container">
                                     <p class = "abilities">${"Abilities: " + content.abilities[0].ability.name}</p>
                                     <p class="id">${"ID: " + content.id}</p>
                                 </div>
                             </div>
                             `
+                    })
+                    let favBtnTwo = document.querySelectorAll(".lala");
+                    favBtnTwo.forEach( (e) => {
+                        e.addEventListener("click", () => {
+                            if (e.src.match("img/emptyheart.png")) {
+                                e.src = "img/fullheart.png"
+                                if (favs.length == 0) {
+                                    favs.push(pokemon_id)
+                            } else {
+                                let res = favs.find(element => element.id == pokemon_id.id)
+                                    if (res === undefined) {
+                                        favs.push(pokemon_id);
+                                    }
+                                }
+                                localStorage.setItem("favs", JSON.stringify(favs))
+                            } else if (e.src.match("img/fullheart.png")) {
+                                e.src = "img/emptyheart.png"
+                                let temp = favs.filter(item => item.id != pokemon_id.id)
+                                localStorage.setItem("favs", JSON.stringify(temp))
+                            }
+                        })
                     })
                 })
             })
