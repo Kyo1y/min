@@ -3,14 +3,19 @@ body {
     background-color: rgb(164, 164, 245);
 }
 header {
-    display: flex;
-    justify-content: flex-end;
+    display: grid;
+    grid-template-columns: repeat(2, 30rem);
+    grid-template-areas: "headerh1 headerbtn headerbtn headerbtn";
+    justify-content: end;
     align-items: center;
+    justify-items: center;
+    gap: 1.5rem;
 }
 header h1 {
     font-family: 'Mulish';
     font-weight: 700;
     font-size: 3rem;
+    grid-area: "headerh1";
 }
 header input {
     font-family: "Mulish";
@@ -64,10 +69,11 @@ form input {
 }
 .out {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    
+    gap: 1.5rem;
+    flex-wrap: wrap;
+
 }
 .pokemon-container {
     display: flex;
@@ -87,7 +93,7 @@ form input {
     display: grid;
     justify-content: center;
     grid-template-columns: repeat(1, 15rem);
-    grid-template-rows: repeat(2, 1.7rem);
+    grid-template-rows: repeat(2, 2.4rem);
     padding-top: 1rem;
     padding-left: 1rem;
     overflow: hidden;
@@ -109,4 +115,19 @@ form input {
     position: absolute;
     padding-left: 12rem;
     padding-bottom: 14rem;
+}
+#view {
+    font-family: "Mulish";
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    height: 2rem;
+    grid-area: "headerbtn";
+    transition: 0.4s;
+    cursor: pointer;
+}
+#view:hover {
+    transition: 0.4s;
+    background-color: rgb(194, 68, 68);
+    color: white;
 }
