@@ -34,8 +34,8 @@ document.getElementById("new-pokemon-submit").addEventListener("click", event =>
             </div>
         </div>
         `
-    let favBtn = document.getElementById("fav-btn");
-    favBtn.addEventListener("click", () => {
+        let favBtn = document.getElementById("fav-btn");
+        favBtn.addEventListener("click", () => {
             let pokemonName= allPokesArr.find((pokemon)=> {
                 return pokemon.name == content.name
             })
@@ -55,8 +55,8 @@ document.getElementById("new-pokemon-submit").addEventListener("click", event =>
                     let temp = favs.filter(item => item != pokemonName.name)
                     localStorage.setItem("favs", JSON.stringify(temp))
                     }
+            })
         })
-    })
     .catch((error) => {
         alert("Something went wrong...")
     })
@@ -65,6 +65,9 @@ let favurl = `https://pokeapi.co/api/v2/pokemon/`;
 let viewFav = document.getElementById("view");
 viewFav.addEventListener("click", () => {
     out.innerHTML = ""
+    if(favs.length == 0) {
+        alert("No favourites added!")
+    }
     favs.map((element) => {
         favPokeUrl = favurl + element
         fetch(favPokeUrl)
@@ -110,8 +113,6 @@ viewFav.addEventListener("click", () => {
                 })
             }
         })
-        .catch((error) => {
-            alert("No favourites added!")
-        })
+        
     })
 })
