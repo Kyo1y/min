@@ -110,5 +110,8 @@ viewFav.addEventListener("click", () => {
                 })
             }
         })
+        .catch((error) => {
+            alert("No favourites added!")
+        })
     })
 })
